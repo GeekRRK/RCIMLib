@@ -1,0 +1,20 @@
+PODS:
+  - IQKeyboardManager (4.0.7)
+  - RongCloudIM/IMLib (2.8.0)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+
+DEPENDENCIES:
+  - IQKeyboardManager
+  - RongCloudIM/IMLib (= 2.8.0)
+  - SDWebImage
+
+SPEC CHECKSUMS:
+  IQKeyboardManager: 69002bb4fea60596b710e57d426abc00e5063630
+  RongCloudIM: 82a5fcf93027ef2845063e6d5ba77f9f42eb87a5
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+
+PODFILE CHECKSUM: 1040aa4d9d2410990933df30f1173c1b20de5374
+
+COCOAPODS: 1.2.0.beta.1

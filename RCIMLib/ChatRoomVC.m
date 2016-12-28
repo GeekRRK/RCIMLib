@@ -10,7 +10,6 @@
 #import <RongIMLib/RongIMLib.h>
 #import "MsgRightCell.h"
 #import "MsgLeftCell.h"
-#import "AppDelegate.h"
 #import "MsgModel.h"
 #import <SDWebImage/UIButton+WebCache.h>
 
@@ -68,7 +67,12 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == _inputTextField) {
-        RCTextMessage *msgModel = [RCTextMessage messageWithContent:_inputTextField.text];
+        MsgModel *msgModel = [[MsgModel alloc] init];
+        
+        msgModel.userId = [RCIMClient sharedRCIMClient].currentUserInfo.userId;
+        msgModel.thumb = @"http://diy.qqjay.com/u2/2012/0924/7032b10ffcdfc9b096ac46bde0d2925b.jpg";
+        msgModel.nick = [RCIMClient sharedRCIMClient].currentUserInfo.name;
+        msgModel.msg = _inputTextField.text;
         
         [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_CHATROOM
                                           targetId:@"110"
@@ -78,8 +82,7 @@
                                            success:^(long messageId) {
                                                NSLog(@"发送成功。当前消息ID：%ld", messageId);
                                                
-                                               AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
-                                               [appDelegate.msgs addObject:msgModel];
+                                               [APPDELEGATE.msgs addObject:msgModel];
                                                
                                                dispatch_async(dispatch_get_main_queue(), ^{
                                                    textField.text = @"";
@@ -100,8 +103,7 @@
 }
 
 - (void)updateMsgs {
-    AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
-    _msgs = appDelegate.msgs;
+    _msgs = APPDELEGATE.msgs;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [_tableView reloadData];
@@ -119,7 +121,7 @@
     
     float screenWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
     
-    CGSize size = [self textDynamicHeight:msgModel.content fixedWidth:screenWidth - 44 - 3 * 8 fontSize:font];
+    CGSize size = [self textDynamicHeight:msgModel.msg fixedWidth:screenWidth - 44 - 3 * 8 fontSize:font];
     float addedH = 0;
     if (size.height > 15) {
         addedH += size.height - 15;
@@ -129,36 +131,34 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    RCTextMessage *msgModel = _msgs[indexPath.row];
+    MsgModel *msgModel = _msgs[indexPath.row];
+    MsgRightCell *cell;
+    NSString *reusableCell;
     
-    if ([msgModel.senderUserInfo.userId isEqualToString:[RCIMClient sharedRCIMClient].currentUserInfo.userId]) {
-        NSString *reusableRightCell = @"ReusableRightCell";
-        MsgRightCell *rightCell = [tableView dequeueReusableCellWithIdentifier:reusableRightCell];
+    if ([msgModel.userId isEqualToString:[RCIMClient sharedRCIMClient].currentUserInfo.userId]) {
+        reusableCell= @"ReusableRightCell";
         
-        if (rightCell == nil) {
-            rightCell = [[[NSBundle mainBundle] loadNibNamed:@"MsgRightCell" owner:nil options:nil] firstObject];
+        cell = [tableView dequeueReusableCellWithIdentifier:reusableCell];
+        
+        if (cell == nil) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"MsgRightCell" owner:nil options:nil] firstObject];
         }
-        
-        [rightCell.avatarBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:@"http://diy.qqjay.com/u2/2012/0924/7032b10ffcdfc9b096ac46bde0d2925b.jpg"] forState:UIControlStateNormal];
-        rightCell.nameLabel.text = @"nick";
-        rightCell.msgLabel.text = msgModel.content;
-        rightCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return rightCell;
     } else {
-        NSString *reusableLeftCell = @"ReusableLeftCell";
-        MsgLeftCell *leftCell = [tableView dequeueReusableCellWithIdentifier:reusableLeftCell];
-        if (leftCell == nil) {
-            leftCell = [[[NSBundle mainBundle] loadNibNamed:@"MsgLeftCell" owner:nil options:nil] firstObject];
+        reusableCell = @"ReusableLeftCell";
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:reusableCell];
+        
+        if (cell == nil) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"MsgLeftCell" owner:nil options:nil] firstObject];
         }
-        
-        [leftCell.avatarBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:@"http://diy.qqjay.com/u2/2012/0924/7032b10ffcdfc9b096ac46bde0d2925b.jpg"] forState:UIControlStateNormal];
-        leftCell.nameLabel.text = @"nick";
-        leftCell.msgLabel.text = msgModel.content;
-        leftCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return leftCell;
     }
+    
+    [cell.avatarBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:msgModel.thumb] forState:UIControlStateNormal];
+    cell.nameLabel.text = msgModel.nick;
+    cell.msgLabel.text = msgModel.msg;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

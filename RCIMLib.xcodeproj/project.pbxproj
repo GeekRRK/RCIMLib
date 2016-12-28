@@ -44,6 +44,7 @@
 		AEDD45571E12508500A67C7B /* MsgRightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgRightCell.h; sourceTree = "<group>"; };
 		AEDD45581E12508500A67C7B /* MsgRightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgRightCell.m; sourceTree = "<group>"; };
 		AEDD45591E12508500A67C7B /* MsgRightCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MsgRightCell.xib; sourceTree = "<group>"; };
+		AEF9EDFC1E138F3100A5B0C9 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		DB46F35FC390592106047D87 /* Pods-RCIMLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RCIMLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-RCIMLib/Pods-RCIMLib.release.xcconfig"; sourceTree = "<group>"; };
 		FFE2239D3B10D7005E1264E7 /* Pods-RCIMLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RCIMLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RCIMLib/Pods-RCIMLib.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,8 +101,6 @@
 			children = (
 				AE7786A71E1272DE009E6BEF /* MsgModel.h */,
 				AE7786A81E1272DE009E6BEF /* MsgModel.m */,
-				AE9B50361E122FA900411AAC /* AppDelegate.h */,
-				AE9B50371E122FA900411AAC /* AppDelegate.m */,
 				AE9B50391E122FA900411AAC /* ViewController.h */,
 				AE9B503A1E122FA900411AAC /* ViewController.m */,
 				AEDD45541E124DA600A67C7B /* ChatRoomVC.h */,
@@ -112,11 +111,10 @@
 				AE7786A41E126FD4009E6BEF /* MsgLeftCell.h */,
 				AE7786A31E126FD4009E6BEF /* MsgLeftCell.m */,
 				AE7786A21E126FD4009E6BEF /* MsgLeftCell.xib */,
-				AE9B503C1E122FA900411AAC /* Main.storyboard */,
-				AE9B503F1E122FA900411AAC /* Assets.xcassets */,
-				AE9B50411E122FA900411AAC /* LaunchScreen.storyboard */,
-				AE9B50441E122FA900411AAC /* Info.plist */,
 				AE9B50331E122FA900411AAC /* Supporting Files */,
+				AEF9EDFC1E138F3100A5B0C9 /* PrefixHeader.pch */,
+				AE9B50361E122FA900411AAC /* AppDelegate.h */,
+				AE9B50371E122FA900411AAC /* AppDelegate.m */,
 			);
 			path = RCIMLib;
 			sourceTree = "<group>";
@@ -124,6 +122,10 @@
 		AE9B50331E122FA900411AAC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE9B503C1E122FA900411AAC /* Main.storyboard */,
+				AE9B503F1E122FA900411AAC /* Assets.xcassets */,
+				AE9B50411E122FA900411AAC /* LaunchScreen.storyboard */,
+				AE9B50441E122FA900411AAC /* Info.plist */,
 				AE9B50341E122FA900411AAC /* main.m */,
 			);
 			name = "Supporting Files";
@@ -380,6 +382,8 @@
 			baseConfigurationReference = FFE2239D3B10D7005E1264E7 /* Pods-RCIMLib.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/RCIMLib/PrefixHeader.pch";
 				INFOPLIST_FILE = RCIMLib/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -393,6 +397,8 @@
 			baseConfigurationReference = DB46F35FC390592106047D87 /* Pods-RCIMLib.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/RCIMLib/PrefixHeader.pch";
 				INFOPLIST_FILE = RCIMLib/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

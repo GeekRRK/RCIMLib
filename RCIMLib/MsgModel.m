@@ -22,8 +22,10 @@
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&__error];
     NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:dictionary];
     if (!__error && dict) {
+        self.userId = [dict objectForKey:@"userId"];
         self.thumb = [dict objectForKey:@"thumb"];
         self.nick = [dict objectForKey:@"nick"];
+        self.msg = [dict objectForKey:@"msg"];
         NSDictionary *userinfoDic = [dict objectForKey:@"user"];
         [self decodeUserInfo:userinfoDic];
     } else {
@@ -33,12 +35,21 @@
 
 - (NSData *)encode {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    if (self.userId) {
+        [dict setObject:self.userId forKey:@"userId"];
+    }
+    
     if (self.thumb) {
         [dict setObject:self.thumb forKey:@"thumb"];
     }
     
     if (self.nick) {
         [dict setObject:self.nick forKey:@"nick"];
+    }
+    
+    if (self.msg) {
+        [dict setObject:self.msg forKey:@"msg"];
     }
     
     if (self.senderUserInfo) {

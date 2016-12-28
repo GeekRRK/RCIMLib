@@ -24,9 +24,17 @@
                                     <action selector="clickJoinChatRoomBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gva-PG-tRg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fuS-i1-4gY">
+                                <state key="normal" title="初始化RCIMLib"/>
+                                <connections>
+                                    <action selector="clickInitRCIMLibBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ucy-27-mY9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="WOl-CV-bG8" firstAttribute="top" secondItem="fuS-i1-4gY" secondAttribute="bottom" constant="18.5" id="30R-rF-2Eu"/>
+                            <constraint firstItem="fuS-i1-4gY" firstAttribute="centerX" secondItem="WOl-CV-bG8" secondAttribute="centerX" id="ICX-bH-ENj"/>
                             <constraint firstItem="WOl-CV-bG8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Tgj-Yf-PJw"/>
                             <constraint firstItem="WOl-CV-bG8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="eCx-9I-Cfv"/>
                         </constraints>

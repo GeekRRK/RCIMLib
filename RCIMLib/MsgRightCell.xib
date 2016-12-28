@@ -23,10 +23,11 @@
                         </constraints>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-VC-KmQ">
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pnF-o1-oe2" userLabel="bubble"/>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="消息内容" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWy-oF-qX2">
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
@@ -35,16 +36,21 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="H4n-ur-SuJ" firstAttribute="leading" secondItem="Wze-VC-KmQ" secondAttribute="trailing" constant="8" id="76A-zF-DOT"/>
+                    <constraint firstItem="H4n-ur-SuJ" firstAttribute="leading" secondItem="pnF-o1-oe2" secondAttribute="trailing" constant="2" id="KOf-q2-5Xn"/>
+                    <constraint firstItem="pnF-o1-oe2" firstAttribute="height" secondItem="fWy-oF-qX2" secondAttribute="height" constant="8" id="NxT-EL-yFa"/>
                     <constraint firstAttribute="topMargin" secondItem="H4n-ur-SuJ" secondAttribute="top" id="aCl-hY-BRg"/>
-                    <constraint firstItem="fWy-oF-qX2" firstAttribute="trailing" secondItem="Wze-VC-KmQ" secondAttribute="trailing" id="eYM-vb-CMl"/>
+                    <constraint firstItem="fWy-oF-qX2" firstAttribute="trailing" secondItem="Wze-VC-KmQ" secondAttribute="trailing" constant="-5" id="eYM-vb-CMl"/>
                     <constraint firstAttribute="trailingMargin" secondItem="H4n-ur-SuJ" secondAttribute="trailing" id="gNV-aR-g7O"/>
+                    <constraint firstItem="pnF-o1-oe2" firstAttribute="leading" secondItem="fWy-oF-qX2" secondAttribute="leading" constant="-9" id="ieB-VS-aYn"/>
                     <constraint firstItem="Wze-VC-KmQ" firstAttribute="top" secondItem="H4n-ur-SuJ" secondAttribute="top" id="kXX-ju-tpZ"/>
-                    <constraint firstItem="fWy-oF-qX2" firstAttribute="top" secondItem="Wze-VC-KmQ" secondAttribute="bottom" constant="8" id="sEv-0s-UA5"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="fWy-oF-qX2" secondAttribute="leading" id="yLs-1o-XQM"/>
+                    <constraint firstItem="fWy-oF-qX2" firstAttribute="top" secondItem="Wze-VC-KmQ" secondAttribute="bottom" constant="12" id="sEv-0s-UA5"/>
+                    <constraint firstItem="pnF-o1-oe2" firstAttribute="top" secondItem="Wze-VC-KmQ" secondAttribute="bottom" constant="8" id="tcb-Qm-0In"/>
+                    <constraint firstAttribute="leadingMargin" relation="lessThanOrEqual" secondItem="fWy-oF-qX2" secondAttribute="leading" constant="-5" id="yLs-1o-XQM"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatarBtn" destination="H4n-ur-SuJ" id="mwm-Hp-c1G"/>
+                <outlet property="bubbleImgView" destination="pnF-o1-oe2" id="Ooj-Ml-dHm"/>
                 <outlet property="msgLabel" destination="fWy-oF-qX2" id="2fy-JR-tjx"/>
                 <outlet property="nameLabel" destination="Wze-VC-KmQ" id="0G2-9p-FaB"/>
             </connections>

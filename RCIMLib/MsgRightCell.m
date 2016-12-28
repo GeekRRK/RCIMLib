@@ -13,6 +13,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    _bubbleImgView.image = [UIImage imageNamed:@"chat_to_bg_normal"];
+    self.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

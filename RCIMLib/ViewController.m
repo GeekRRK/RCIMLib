@@ -12,6 +12,12 @@
 #import "MsgModel.h"
 #import "DBUtil.h"
 
+#ifdef iOS_USER
+    #define TOKEN @"B6DG021oEvs7ouJgOsInTSVp/CNMqpPvPJzshjB++fG5FXnh3Wb3BuBlBL5q/atZAuDNkiJEwCc="
+#else
+    #define TOKEN @"KAxG/KgklnEGsB5aNtogmPnvTHMkACxQmP5DOC56i9tD+DkVsfqaPiDhDE8JVjwMmYYCnweeYE5MkKFI72ulUw=="
+#endif
+
 @interface ViewController () <RCIMClientReceiveMessageDelegate>
 
 @end
@@ -24,7 +30,7 @@
 
 - (IBAction)clickInitRCIMLibBtn:(id)sender {
     [[RCIMClient sharedRCIMClient] initWithAppKey:@"mgb7ka1nb9q6g"];
-    [[RCIMClient sharedRCIMClient] connectWithToken:@"B6DG021oEvs7ouJgOsInTSVp/CNMqpPvPJzshjB++fG5FXnh3Wb3BuBlBL5q/atZAuDNkiJEwCc="
+    [[RCIMClient sharedRCIMClient] connectWithToken:TOKEN
                                             success:^(NSString *userId) {
                                                 NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
                                                 [[RCIMClient sharedRCIMClient] setReceiveMessageDelegate:self object:nil];
@@ -58,17 +64,23 @@
         NSLog(@"消息内容：%@", msgModel.msg);
         
         if (message.conversationType == ConversationType_CHATROOM) {
-            [APPDELEGATE.msgs addObject:msgModel];
-            
-            NSLog(@"还剩余的未接收的消息数：%d", nLeft);
-            
-            if (![msgModel.userId isEqualToString:[RCIMClient sharedRCIMClient].currentUserInfo.userId]) {
+            if ([msgModel.userId isEqualToString:[RCIMClient sharedRCIMClient].currentUserInfo.userId]) {
+                UserModel *userModel = [DBUtil queryUserModelByUserid:msgModel.userId fromTable:USERTABLE];
+                if (userModel) {
+                    msgModel.nick = userModel.nick;
+                    msgModel.thumb = userModel.thumb;
+                }
+            } else {
                 UserModel *userModel = [[UserModel alloc] init];
                 userModel.userid = msgModel.userId;
                 userModel.thumb = msgModel.thumb;
                 userModel.nick = msgModel.nick;
                 [DBUtil replaceUserModel:userModel intoTable:USERTABLE];
             }
+            
+            [APPDELEGATE.msgs addObject:msgModel];
+            
+            NSLog(@"还剩余的未接收的消息数：%d", nLeft);
             
             if (nLeft == 0) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"update_msgs" object:nil];

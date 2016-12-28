@@ -14,6 +14,14 @@
 #import <SDWebImage/UIButton+WebCache.h>
 #import "DBUtil.h"
 
+#ifdef iOS_USER
+    #define AVATAR @"http://diy.qqjay.com/u2/2012/0924/7032b10ffcdfc9b096ac46bde0d2925b.jpg"
+    #define NICK @"iOS"
+#else 
+    #define AVATAR @"http://diy.qqjay.com/u2/2012/1118/ed0d58cbf87895c01196d560133dd8ba.jpg"
+    #define NICK @"Android"
+#endif
+
 @interface ChatRoomVC () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (strong, nonatomic) NSMutableArray *msgs;
@@ -38,6 +46,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [_tableView addGestureRecognizer:tapGest];
@@ -71,8 +80,8 @@
         MsgModel *msgModel = [[MsgModel alloc] init];
         
         msgModel.userId = [RCIMClient sharedRCIMClient].currentUserInfo.userId;
-        msgModel.thumb = @"http://diy.qqjay.com/u2/2012/0924/7032b10ffcdfc9b096ac46bde0d2925b.jpg";
-        msgModel.nick = @"iOS_Tester";
+        msgModel.thumb = AVATAR;
+        msgModel.nick = NICK;
         msgModel.msg = _inputTextField.text;
         
         [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_CHATROOM
@@ -114,6 +123,11 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [_tableView reloadData];
+        
+        if (_tableView.contentSize.height > _tableView.frame.size.height) {
+            CGPoint offset = CGPointMake(0, _tableView.contentSize.height - _tableView.frame.size.height);
+            [_tableView setContentOffset:offset animated:YES];
+        }
     });
 }
 
@@ -128,13 +142,13 @@
     
     float screenWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
     
-    CGSize size = [self textDynamicHeight:msgModel.msg fixedWidth:screenWidth - 44 - 3 * 8 fontSize:font];
+    CGSize size = [self textDynamicHeight:msgModel.msg fixedWidth:screenWidth - 44 - 3 * 8 - 10 fontSize:font];
     float addedH = 0;
     if (size.height > 15) {
         addedH += size.height - 15;
     }
     
-    return 60 + addedH;
+    return 60 + addedH + 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -166,7 +180,7 @@
     
     NSString *thumb;
     NSString *nick;
-    NSString *msg;
+    
     if (userModel) {
         thumb = userModel.thumb;
         nick = userModel.nick;
@@ -175,10 +189,13 @@
         nick = msgModel.nick;
     }
     
-    msg = msgModel.msg;
-    [cell.avatarBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:msgModel.thumb] forState:UIControlStateNormal];
-    cell.nameLabel.text = msgModel.nick;
+    [cell.avatarBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:thumb] forState:UIControlStateNormal];
+    cell.nameLabel.text = nick;
     cell.msgLabel.text = msgModel.msg;
+    
+    UIFont *font = [UIFont systemFontOfSize:12];
+    float screenWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
+    CGSize size = [self textDynamicHeight:msgModel.msg fixedWidth:screenWidth - 44 - 3 * 8 - 10 fontSize:font];
     
     return cell;
 }

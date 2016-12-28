@@ -22,29 +22,35 @@
                             <constraint firstAttribute="width" constant="44" id="weI-LF-jnu"/>
                         </constraints>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rig-5i-JnT" userLabel="bubble"/>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="消息内容" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWy-oF-qX2">
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-VC-KmQ">
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Wze-VC-KmQ" firstAttribute="top" secondItem="H4n-ur-SuJ" secondAttribute="top" id="2VT-Re-4sO"/>
+                    <constraint firstItem="rig-5i-JnT" firstAttribute="top" secondItem="Wze-VC-KmQ" secondAttribute="bottom" constant="8" id="EIC-dx-VdU"/>
+                    <constraint firstItem="rig-5i-JnT" firstAttribute="leading" secondItem="H4n-ur-SuJ" secondAttribute="trailing" constant="2" id="GcB-eV-PWC"/>
                     <constraint firstAttribute="leadingMargin" secondItem="H4n-ur-SuJ" secondAttribute="leading" id="KcO-qx-Ijf"/>
-                    <constraint firstItem="fWy-oF-qX2" firstAttribute="top" secondItem="Wze-VC-KmQ" secondAttribute="bottom" constant="14.5" id="SH9-CL-Lf8"/>
+                    <constraint firstItem="fWy-oF-qX2" firstAttribute="top" secondItem="Wze-VC-KmQ" secondAttribute="bottom" constant="12" id="SH9-CL-Lf8"/>
+                    <constraint firstItem="rig-5i-JnT" firstAttribute="trailing" secondItem="fWy-oF-qX2" secondAttribute="trailing" constant="9" id="SYR-7a-KMp"/>
                     <constraint firstItem="Wze-VC-KmQ" firstAttribute="leading" secondItem="H4n-ur-SuJ" secondAttribute="trailing" constant="8" id="Xlc-z5-AUG"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="fWy-oF-qX2" secondAttribute="trailing" id="ZGu-kV-2z4"/>
-                    <constraint firstItem="fWy-oF-qX2" firstAttribute="leading" secondItem="Wze-VC-KmQ" secondAttribute="leading" id="fYt-6n-vsc"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="fWy-oF-qX2" secondAttribute="trailing" constant="5" id="ZGu-kV-2z4"/>
+                    <constraint firstItem="fWy-oF-qX2" firstAttribute="leading" secondItem="Wze-VC-KmQ" secondAttribute="leading" constant="5" id="fYt-6n-vsc"/>
+                    <constraint firstItem="rig-5i-JnT" firstAttribute="height" secondItem="fWy-oF-qX2" secondAttribute="height" constant="8" id="mTn-4y-t5h"/>
                     <constraint firstAttribute="topMargin" secondItem="H4n-ur-SuJ" secondAttribute="top" id="xq1-j3-Tvr"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatarBtn" destination="H4n-ur-SuJ" id="mwm-Hp-c1G"/>
+                <outlet property="bubbleImgView" destination="rig-5i-JnT" id="k5u-FZ-Fd6"/>
                 <outlet property="msgLabel" destination="fWy-oF-qX2" id="2fy-JR-tjx"/>
                 <outlet property="nameLabel" destination="Wze-VC-KmQ" id="0G2-9p-FaB"/>
             </connections>

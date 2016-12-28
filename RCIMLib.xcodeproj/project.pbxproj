@@ -175,6 +175,7 @@
 				TargetAttributes = {
 					AE9B502F1E122FA900411AAC = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = B5BXCD45E5;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -394,6 +395,7 @@
 			baseConfigurationReference = FFE2239D3B10D7005E1264E7 /* Pods-RCIMLib.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = B5BXCD45E5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/RCIMLib/PrefixHeader.pch";
 				INFOPLIST_FILE = RCIMLib/Info.plist;
@@ -409,6 +411,7 @@
 			baseConfigurationReference = DB46F35FC390592106047D87 /* Pods-RCIMLib.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = B5BXCD45E5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/RCIMLib/PrefixHeader.pch";
 				INFOPLIST_FILE = RCIMLib/Info.plist;

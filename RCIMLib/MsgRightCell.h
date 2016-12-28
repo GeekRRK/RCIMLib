@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *avatarBtn;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *msgLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *bubbleImgView;
 
 @end

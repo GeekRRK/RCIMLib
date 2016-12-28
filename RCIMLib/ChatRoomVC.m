@@ -86,7 +86,7 @@
                                                    [_tableView reloadData];
                                                    
                                                    if (_tableView.contentSize.height > _tableView.frame.size.height) {
-                                                       CGPoint offset = CGPointMake(0, _tableView.contentSize.height -     _tableView.frame.size.height);
+                                                       CGPoint offset = CGPointMake(0, _tableView.contentSize.height - _tableView.frame.size.height);
                                                        [_tableView setContentOffset:offset animated:YES];
                                                    }
                                                });

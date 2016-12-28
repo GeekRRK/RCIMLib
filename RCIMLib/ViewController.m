@@ -10,6 +10,7 @@
 #import <RongIMLib/RongIMLib.h>
 #import "ChatRoomVC.h"
 #import "MsgModel.h"
+#import "DBUtil.h"
 
 @interface ViewController () <RCIMClientReceiveMessageDelegate>
 
@@ -60,6 +61,14 @@
             [APPDELEGATE.msgs addObject:msgModel];
             
             NSLog(@"还剩余的未接收的消息数：%d", nLeft);
+            
+            if (![msgModel.userId isEqualToString:[RCIMClient sharedRCIMClient].currentUserInfo.userId]) {
+                UserModel *userModel = [[UserModel alloc] init];
+                userModel.userid = msgModel.userId;
+                userModel.thumb = msgModel.thumb;
+                userModel.nick = msgModel.nick;
+                [DBUtil replaceUserModel:userModel intoTable:USERTABLE];
+            }
             
             if (nLeft == 0) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"update_msgs" object:nil];

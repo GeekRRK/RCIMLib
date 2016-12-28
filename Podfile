@@ -9,4 +9,5 @@ target 'RCIMLib' do
   pod 'RongCloudIM/IMLib', '2.8.0'
   pod 'SDWebImage'
   pod 'IQKeyboardManager'
+  pod 'FMDB', '2.6.2'
 end

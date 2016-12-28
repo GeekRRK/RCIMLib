@@ -1,4 +1,7 @@
 PODS:
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
   - IQKeyboardManager (4.0.7)
   - RongCloudIM/IMLib (2.8.0)
   - SDWebImage (3.8.2):
@@ -6,15 +9,17 @@ PODS:
   - SDWebImage/Core (3.8.2)
 
 DEPENDENCIES:
+  - FMDB (= 2.6.2)
   - IQKeyboardManager
   - RongCloudIM/IMLib (= 2.8.0)
   - SDWebImage
 
 SPEC CHECKSUMS:
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   IQKeyboardManager: 69002bb4fea60596b710e57d426abc00e5063630
   RongCloudIM: 82a5fcf93027ef2845063e6d5ba77f9f42eb87a5
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 1040aa4d9d2410990933df30f1173c1b20de5374
+PODFILE CHECKSUM: 7ddf470f3c3ad36a43834deac513b0563e512d33
 
 COCOAPODS: 1.2.0.beta.1

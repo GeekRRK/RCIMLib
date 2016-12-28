@@ -16,4 +16,6 @@
 
 #define APPDELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
+#define CACHE_DIR                 [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]
+
 #endif /* PrefixHeader_pch */

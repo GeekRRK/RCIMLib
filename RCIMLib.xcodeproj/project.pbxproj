@@ -20,6 +20,8 @@
 		AEDD45561E124DA600A67C7B /* ChatRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEDD45551E124DA600A67C7B /* ChatRoomVC.m */; };
 		AEDD455A1E12508500A67C7B /* MsgRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AEDD45581E12508500A67C7B /* MsgRightCell.m */; };
 		AEDD455B1E12508500A67C7B /* MsgRightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEDD45591E12508500A67C7B /* MsgRightCell.xib */; };
+		AEF9EDFF1E139FB000A5B0C9 /* DBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9EDFE1E139FB000A5B0C9 /* DBUtil.m */; };
+		AEF9EE021E13A08800A5B0C9 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF9EE011E13A08800A5B0C9 /* UserModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,10 @@
 		AEDD45581E12508500A67C7B /* MsgRightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgRightCell.m; sourceTree = "<group>"; };
 		AEDD45591E12508500A67C7B /* MsgRightCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MsgRightCell.xib; sourceTree = "<group>"; };
 		AEF9EDFC1E138F3100A5B0C9 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		AEF9EDFD1E139FB000A5B0C9 /* DBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBUtil.h; sourceTree = "<group>"; };
+		AEF9EDFE1E139FB000A5B0C9 /* DBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBUtil.m; sourceTree = "<group>"; };
+		AEF9EE001E13A08800A5B0C9 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		AEF9EE011E13A08800A5B0C9 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		DB46F35FC390592106047D87 /* Pods-RCIMLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RCIMLib.release.xcconfig"; path = "Pods/Target Support Files/Pods-RCIMLib/Pods-RCIMLib.release.xcconfig"; sourceTree = "<group>"; };
 		FFE2239D3B10D7005E1264E7 /* Pods-RCIMLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RCIMLib.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RCIMLib/Pods-RCIMLib.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +121,10 @@
 				AEF9EDFC1E138F3100A5B0C9 /* PrefixHeader.pch */,
 				AE9B50361E122FA900411AAC /* AppDelegate.h */,
 				AE9B50371E122FA900411AAC /* AppDelegate.m */,
+				AEF9EDFD1E139FB000A5B0C9 /* DBUtil.h */,
+				AEF9EDFE1E139FB000A5B0C9 /* DBUtil.m */,
+				AEF9EE001E13A08800A5B0C9 /* UserModel.h */,
+				AEF9EE011E13A08800A5B0C9 /* UserModel.m */,
 			);
 			path = RCIMLib;
 			sourceTree = "<group>";
@@ -262,6 +272,8 @@
 				AE7786A91E1272DE009E6BEF /* MsgModel.m in Sources */,
 				AE9B50381E122FA900411AAC /* AppDelegate.m in Sources */,
 				AE9B50351E122FA900411AAC /* main.m in Sources */,
+				AEF9EDFF1E139FB000A5B0C9 /* DBUtil.m in Sources */,
+				AEF9EE021E13A08800A5B0C9 /* UserModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

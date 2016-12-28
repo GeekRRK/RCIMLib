@@ -12,6 +12,7 @@
 #import "MsgLeftCell.h"
 #import "MsgModel.h"
 #import <SDWebImage/UIButton+WebCache.h>
+#import "DBUtil.h"
 
 @interface ChatRoomVC () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -71,7 +72,7 @@
         
         msgModel.userId = [RCIMClient sharedRCIMClient].currentUserInfo.userId;
         msgModel.thumb = @"http://diy.qqjay.com/u2/2012/0924/7032b10ffcdfc9b096ac46bde0d2925b.jpg";
-        msgModel.nick = [RCIMClient sharedRCIMClient].currentUserInfo.name;
+        msgModel.nick = @"iOS_Tester";
         msgModel.msg = _inputTextField.text;
         
         [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_CHATROOM
@@ -81,6 +82,12 @@
                                           pushData:nil
                                            success:^(long messageId) {
                                                NSLog(@"发送成功。当前消息ID：%ld", messageId);
+                                               
+                                               UserModel *userModel = [[UserModel alloc] init];
+                                               userModel.userid = msgModel.userId;
+                                               userModel.thumb = msgModel.thumb;
+                                               userModel.nick = msgModel.nick;
+                                               [DBUtil replaceUserModel:userModel intoTable:USERTABLE];
                                                
                                                [APPDELEGATE.msgs addObject:msgModel];
                                                
@@ -153,10 +160,25 @@
         }
     }
     
+    UserModel *userModel = [DBUtil queryUserModelByUserid:msgModel.userId fromTable:USERTABLE];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    NSString *thumb;
+    NSString *nick;
+    NSString *msg;
+    if (userModel) {
+        thumb = userModel.thumb;
+        nick = userModel.nick;
+    } else {
+        thumb = msgModel.thumb;
+        nick = msgModel.nick;
+    }
+    
+    msg = msgModel.msg;
     [cell.avatarBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:msgModel.thumb] forState:UIControlStateNormal];
     cell.nameLabel.text = msgModel.nick;
     cell.msgLabel.text = msgModel.msg;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }

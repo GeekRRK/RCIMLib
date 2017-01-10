@@ -22,7 +22,7 @@
     #define NICK @"Android"
 #endif
 
-@interface ChatRoomVC () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface ChatRoomVC () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *msgs;
 @property (strong, nonatomic) UITableView *tableView;
@@ -40,6 +40,8 @@
     CGRect rect = self.view.bounds;
     rect.size.height -= 44;
     
+    self.view.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+    
     _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
     [self.view addSubview:_tableView];
     _tableView.backgroundColor = [UIColor whiteColor];
@@ -51,15 +53,64 @@
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [_tableView addGestureRecognizer:tapGest];
     
+    float btnW = 55;
+    float btnH = 40;
+    
     float screenWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
-    _inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_tableView.frame), screenWidth, 44)];
+    _inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(_tableView.frame) + 2, screenWidth - btnW - 5 - 10, btnH)];
     [self.view addSubview:_inputTextField];
-    _inputTextField.delegate = self;
     _inputTextField.backgroundColor = [UIColor whiteColor];
-    _inputTextField.layer.borderColor = [UIColor grayColor].CGColor;
-    _inputTextField.layer.borderWidth = 2;
+    
+    UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    sendBtn.frame = CGRectMake(CGRectGetMaxX(_inputTextField.frame) + 5, CGRectGetMinY(_inputTextField.frame), btnW, btnH);
+    sendBtn.layer.masksToBounds = YES;
+    sendBtn.layer.cornerRadius = 2.5;
+    sendBtn.backgroundColor = [UIColor colorWithRed:0 green:0.6 blue:1 alpha:1.0];
+    sendBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
+    [sendBtn addTarget:self action:@selector(clickSendBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:sendBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMsgs) name:@"update_msgs" object:nil];
+}
+
+- (void)clickSendBtn {
+    MsgModel *msgModel = [[MsgModel alloc] init];
+    
+    msgModel.userId = [RCIMClient sharedRCIMClient].currentUserInfo.userId;
+    msgModel.thumb = AVATAR;
+    msgModel.nick = NICK;
+    msgModel.msg = _inputTextField.text;
+    
+    [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_CHATROOM
+                                      targetId:@"110"
+                                       content:msgModel
+                                   pushContent:nil
+                                      pushData:nil
+                                       success:^(long messageId) {
+                                           NSLog(@"发送成功。当前消息ID：%ld", messageId);
+                                           
+                                           UserModel *userModel = [[UserModel alloc] init];
+                                           userModel.userid = msgModel.userId;
+                                           userModel.thumb = msgModel.thumb;
+                                           userModel.nick = msgModel.nick;
+                                           [DBUtil replaceUserModel:userModel intoTable:USERTABLE];
+                                           
+                                           [APPDELEGATE.msgs addObject:msgModel];
+                                           
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               _inputTextField.text = @"";
+                                               [_tableView reloadData];
+                                               
+                                               if (_tableView.contentSize.height > _tableView.frame.size.height) {
+                                                   CGPoint offset = CGPointMake(0, _tableView.contentSize.height - _tableView.frame.size.height);
+                                                   [_tableView setContentOffset:offset animated:YES];
+                                               }
+                                           });
+                                       } error:^(RCErrorCode nErrorCode, long messageId) {
+                                           NSLog(@"发送失败。消息ID：%ld， 错误码：%ld", messageId, nErrorCode);
+                                       }];
 }
 
 - (void)hideKeyboard {
@@ -73,49 +124,6 @@
         CGPoint offset = CGPointMake(0, _tableView.contentSize.height - _tableView.frame.size.height);
         [_tableView setContentOffset:offset animated:YES];
     }
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == _inputTextField) {
-        MsgModel *msgModel = [[MsgModel alloc] init];
-        
-        msgModel.userId = [RCIMClient sharedRCIMClient].currentUserInfo.userId;
-        msgModel.thumb = AVATAR;
-        msgModel.nick = NICK;
-        msgModel.msg = _inputTextField.text;
-        
-        [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_CHATROOM
-                                          targetId:@"110"
-                                           content:msgModel
-                                       pushContent:nil
-                                          pushData:nil
-                                           success:^(long messageId) {
-                                               NSLog(@"发送成功。当前消息ID：%ld", messageId);
-                                               
-                                               UserModel *userModel = [[UserModel alloc] init];
-                                               userModel.userid = msgModel.userId;
-                                               userModel.thumb = msgModel.thumb;
-                                               userModel.nick = msgModel.nick;
-                                               [DBUtil replaceUserModel:userModel intoTable:USERTABLE];
-                                               
-                                               [APPDELEGATE.msgs addObject:msgModel];
-                                               
-                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                   textField.text = @"";
-                                                   [_tableView reloadData];
-                                                   
-                                                   if (_tableView.contentSize.height > _tableView.frame.size.height) {
-                                                       CGPoint offset = CGPointMake(0, _tableView.contentSize.height - _tableView.frame.size.height);
-                                                       [_tableView setContentOffset:offset animated:YES];
-                                                   }
-                                               });
-                                           } error:^(RCErrorCode nErrorCode, long messageId) {
-                                               NSLog(@"发送失败。消息ID：%ld， 错误码：%ld", messageId, nErrorCode);
-                                           }];
-        
-        return NO;
-    }
-    return YES;
 }
 
 - (void)updateMsgs {
@@ -148,7 +156,7 @@
         addedH += size.height - 15;
     }
     
-    return 60 + addedH + 8;
+    return 60 + addedH + 16;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -192,10 +200,6 @@
     [cell.avatarBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:thumb] forState:UIControlStateNormal];
     cell.nameLabel.text = nick;
     cell.msgLabel.text = msgModel.msg;
-    
-    UIFont *font = [UIFont systemFontOfSize:12];
-    float screenWidth = [UIApplication sharedApplication].keyWindow.bounds.size.width;
-    CGSize size = [self textDynamicHeight:msgModel.msg fixedWidth:screenWidth - 44 - 3 * 8 - 10 fontSize:font];
     
     return cell;
 }

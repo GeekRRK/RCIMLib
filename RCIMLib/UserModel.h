@@ -2,7 +2,7 @@
 //  UserModel.h
 //  RCIMLib
 //
-//  Created by UGOMEDIA on 2016/12/28.
+//  Created by GeekRRK on 2016/12/28.
 //  Copyright © 2016年 GeekRRK. All rights reserved.
 //
 

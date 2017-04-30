@@ -2,7 +2,7 @@
 //  MsgModel.m
 //  RCIMLib
 //
-//  Created by UGOMEDIA on 2016/12/27.
+//  Created by GeekRRK on 2016/12/27.
 //  Copyright © 2016年 GeekRRK. All rights reserved.
 //
 
